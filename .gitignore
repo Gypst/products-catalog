@@ -18,8 +18,8 @@ pnpm-debug.log*
 *.iml
 
 # Prisma
-prisma/dev.db
-prisma/dev.db-journal
+backend/prisma/dev.db
+backend/prisma/dev.db-journal
 
 # Test files
 *.spec.ts
