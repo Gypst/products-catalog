@@ -35,7 +35,7 @@ const Catalog: React.FC = () => {
 
     try {
       await axios.delete(`http://localhost:3000/products/${id}`);
-      setProducts(products.filter((product) => product.id !== id)); // Убираем удаленный продукт из списка
+      setProducts(products.filter((product) => product.id !== id));
     } catch (error) {
       console.error('Error deleting product:', error);
     }
