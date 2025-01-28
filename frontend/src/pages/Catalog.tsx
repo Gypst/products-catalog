@@ -29,25 +29,42 @@ const Catalog: React.FC = () => {
     fetchProducts();
   }, []);
 
+  const handleDelete = async (id: number) => {
+    if (!window.confirm('Are you sure you want to delete this product?')) return;
+
+    try {
+      await axios.delete(`http://localhost:3000/products/${id}`);
+      setProducts(products.filter((product) => product.id !== id)); // Убираем удаленный продукт из списка
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">Product Catalog</h1>
+    <div className='text-center'>
+      <h1 className="text-2xl font-bold mb-4">Каталог продуктов</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {products.map((product) => (
           <div
             key={product.id}
-            className="p-4 bg-white shadow rounded-lg cursor-pointer"
-            onClick={() => navigate(`/product/${product.id}`)}
+            className="p-4 bg-white shadow rounded-lg relative"
           >
             <img
               src={`http://localhost:3000/${product.image}`}
               alt={product.name}
-              className="w-full h-48 object-cover rounded"
+              className="w-full h-48 object-cover rounded cursor-pointer"
+              onClick={() => navigate(`/product/${product.id}`)}
             />
             <h2 className="text-lg font-semibold mt-2">{product.name}</h2>
             <p className="text-gray-600">${product.price}</p>
+            <button
+              className="absolute top-2 right-2 px-2 py-1 text-sm bg-red-500 text-white rounded"
+              onClick={() => handleDelete(product.id)}
+            >
+              Delete
+            </button>
           </div>
         ))}
       </div>

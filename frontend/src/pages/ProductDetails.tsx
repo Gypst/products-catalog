@@ -31,11 +31,11 @@ const ProductDetails: React.FC = () => {
   }, [id]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p>Загрузка...</p>;
   }
 
   if (!product) {
-    return <p>Product not found</p>;
+    return <p>Продукт не найден</p>;
   }
 
   return (
@@ -44,7 +44,7 @@ const ProductDetails: React.FC = () => {
         className="mb-4 px-4 py-2 bg-gray-500 text-white rounded"
         onClick={() => navigate(-1)}
       >
-        Back
+        Назад
       </button>
       <div className="flex flex-col lg:flex-row">
         <img

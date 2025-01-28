@@ -29,9 +29,9 @@ const ProductForm: React.FC = () => {
 
   return (
     <form className="bg-white p-6 shadow rounded-lg" onSubmit={handleSubmit}>
-      <h1 className="text-2xl font-bold mb-4">Add Product</h1>
+      <h1 className="text-2xl font-bold mb-4 text-center">Добавить продукт</h1>
       <div className="mb-4">
-        <label className="block text-gray-700">Name</label>
+        <label className="block text-gray-700">Название</label>
         <input
           type="text"
           className="w-full border p-2 rounded"
@@ -40,7 +40,7 @@ const ProductForm: React.FC = () => {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700">SKU</label>
+        <label className="block text-gray-700">Артикул</label>
         <input
           type="text"
           className="w-full border p-2 rounded"
@@ -49,7 +49,7 @@ const ProductForm: React.FC = () => {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700">Price</label>
+        <label className="block text-gray-700">Цена</label>
         <input
           type="number"
           className="w-full border p-2 rounded"
@@ -58,7 +58,7 @@ const ProductForm: React.FC = () => {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700">Description</label>
+        <label className="block text-gray-700">Описание</label>
         <textarea
           className="w-full border p-2 rounded"
           value={description}
@@ -66,7 +66,7 @@ const ProductForm: React.FC = () => {
         ></textarea>
       </div>
       <div className="mb-4">
-        <label className="block text-gray-700">Image</label>
+        <label className="block text-gray-700">Изображение</label>
         <input
           type="file"
           className="w-full border p-2 rounded"

@@ -28,6 +28,12 @@ export class ProductsService {
     });
   }
 
+  async getById(id: number): Promise<Product | null> {
+    return this.prisma.product.findUnique({
+      where: { id },
+    });
+  }
+
   async update(id: number, productData: any): Promise<Product> {
     return this.prisma.product.update({
       where: { id },

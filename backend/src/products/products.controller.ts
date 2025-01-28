@@ -11,7 +11,7 @@ import {
   UploadedFile,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ProductsService } from './products.service'; 
+import { ProductsService } from './products.service';
 import { CreateProductDto } from './create-product.dto';
 import { UpdateProductDto } from './update-product.dto';
 
@@ -26,6 +26,11 @@ export class ProductsController {
     @Query('filter') filter = '',
   ) {
     return this.productsService.getAll(+page, +limit, filter);
+  }
+
+  @Get(':id')
+  async getProduct(@Param('id') id: string) {
+    return this.productsService.getById(+id);
   }
 
   @Post()
