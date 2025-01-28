@@ -12,9 +12,10 @@ export class CreateProductDto {
   @IsNumber()
   price: number;
 
+  @Transform(({ value }) => (value === '' || value === undefined ? null : parseFloat(value)))
   @IsOptional()
   @IsNumber()
-  discountedPrice?: number;
+  discountedPrice?: number | null;
 
   @IsString()
   sku: string;

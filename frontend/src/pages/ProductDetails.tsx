@@ -7,7 +7,7 @@ interface Product {
   name: string;
   price: number;
   description: string;
-  image: string;
+  imageUrl: string;
 }
 
 const ProductDetails: React.FC = () => {
@@ -48,7 +48,7 @@ const ProductDetails: React.FC = () => {
       </button>
       <div className="flex flex-col lg:flex-row">
         <img
-          src={`http://localhost:3000/${product.image}`}
+          src={`http://localhost:3000${product.imageUrl}`}
           alt={product.name}
           className="w-full lg:w-1/2 h-96 object-cover rounded-lg mb-4 lg:mb-0"
         />

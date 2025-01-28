@@ -20,8 +20,11 @@ export class ProductsService {
       data: {
         name: productData.name,
         description: productData.description,
-        price: Number(productData.price),
-        discountedPrice: productData.discountedPrice || null,
+        price: parseFloat(productData.price),
+        discountedPrice:
+          productData.discountedPrice !== undefined && productData.discountedPrice !== ''
+            ? parseFloat(productData.discountedPrice)
+            : null,
         sku: productData.sku,
         imageUrl: productData.imageUrl || null,
       },

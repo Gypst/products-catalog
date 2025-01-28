@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const ProductForm: React.FC = () => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
+  const [discountedPrice, setDiscountedPrice] = useState<number | string>('');
   const [description, setDescription] = useState('');
   const [sku, setSku] = useState('');
   const [image, setImage] = useState<File | null>(null);
@@ -16,11 +17,16 @@ const ProductForm: React.FC = () => {
     formData.append('name', name);
     formData.append('sku', sku);
     formData.append('price', price.toString());
+    formData.append('discountedPrice', discountedPrice?.toString() || '');
     formData.append('description', description);
     if (image) formData.append('file', image);
 
     try {
-      await axios.post('http://localhost:3000/products', formData);
+      await axios.post('http://localhost:3000/products', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       navigate('/');
     } catch (error) {
       console.error('Error creating product:', error);
@@ -28,7 +34,7 @@ const ProductForm: React.FC = () => {
   };
 
   return (
-    <form className="bg-white p-6 shadow rounded-lg" onSubmit={handleSubmit}>
+    <form className="bg-white p-6 shadow rounded-lg max-w-xl mx-auto" onSubmit={handleSubmit}>
       <h1 className="text-2xl font-bold mb-4 text-center">Добавить продукт</h1>
       <div className="mb-4">
         <label className="block text-gray-700">Название</label>
@@ -58,6 +64,15 @@ const ProductForm: React.FC = () => {
         />
       </div>
       <div className="mb-4">
+        <label className="block text-gray-700">Цена со скидкой</label>
+        <input
+          type="number"
+          className="w-full border p-2 rounded"
+          value={discountedPrice}
+          onChange={(e) => setDiscountedPrice(Number(e.target.value))}
+        />
+      </div>
+      <div className="mb-4">
         <label className="block text-gray-700">Описание</label>
         <textarea
           className="w-full border p-2 rounded"
@@ -73,12 +88,14 @@ const ProductForm: React.FC = () => {
           onChange={(e) => setImage(e.target.files?.[0] || null)}
         />
       </div>
-      <button
-        type="submit"
-        className="px-4 py-2 bg-blue-500 text-white rounded"
-      >
-        Save
-      </button>
+      <div className='text-center'>
+        <button
+          type="submit"
+          className="px-4 py-2 bg-blue-500 text-white rounded"
+        >
+          Сохранить
+        </button>
+      </div>
     </form>
   );
 };

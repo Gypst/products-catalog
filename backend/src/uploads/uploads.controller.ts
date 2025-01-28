@@ -10,17 +10,18 @@ export class UploadsController {
     FileInterceptor('file', {
       storage: diskStorage({
         destination: './uploads',
-        filename: (req, file, callback) => {
-          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-          const ext = path.extname(file.originalname);
-          const filename = `${file.fieldname}-${uniqueSuffix}${ext}`;
-          callback(null, filename);
+        filename: (req, file, cb) => {
+          const uniqueName = `${Date.now()}-${file.originalname}`;
+          cb(null, uniqueName);
         },
       }),
     }),
   )
   uploadFile(@UploadedFile() file: Express.Multer.File) {
-    const filePath = path.join('uploads', file.filename);
-    return { url: filePath };
+    if (!file) {
+      throw new Error('File not uploaded');
+    }
+
+    return { url: `/uploads/${file.filename}` };
   }
 }

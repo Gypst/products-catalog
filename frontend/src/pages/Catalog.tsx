@@ -7,7 +7,8 @@ interface Product {
   name: string;
   price: number;
   description: string;
-  image: string;
+  discountedPrice?: number;
+  imageUrl: string;
 }
 
 const Catalog: React.FC = () => {
@@ -52,18 +53,19 @@ const Catalog: React.FC = () => {
             className="p-4 bg-white shadow rounded-lg relative"
           >
             <img
-              src={`http://localhost:3000/${product.image}`}
+              src={`http://localhost:3000${product.imageUrl}`}
               alt={product.name}
               className="w-full h-48 object-cover rounded cursor-pointer"
               onClick={() => navigate(`/product/${product.id}`)}
             />
             <h2 className="text-lg font-semibold mt-2">{product.name}</h2>
-            <p className="text-gray-600">${product.price}</p>
+            <p className="text-gray-600"><span className= {`${product.discountedPrice? 'line-through' : ''}`}>{product.price}</span></p>
+            {product.discountedPrice ?? <p>{product.discountedPrice}</p>}
             <button
-              className="absolute top-2 right-2 px-2 py-1 text-sm bg-red-500 text-white rounded"
+              className="absolute bottom-2 right-2 px-2 py-1 text-sm bg-red-500 text-white rounded"
               onClick={() => handleDelete(product.id)}
             >
-              Delete
+              Удалить
             </button>
           </div>
         ))}
@@ -72,7 +74,7 @@ const Catalog: React.FC = () => {
         className="mt-6 px-4 py-2 bg-blue-500 text-white rounded"
         onClick={() => navigate('/product/new')}
       >
-        Add New Product
+        Добавить продукт
       </button>
     </div>
   );
