@@ -6,14 +6,27 @@ import { Product } from '@prisma/client';
 export class ProductsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getAll(page: number, limit: number, filter: string): Promise<Product[]> {
-    return this.prisma.product.findMany({
-      skip: (page - 1) * limit,
-      take: limit,
-      where: { name: { contains: filter } },
-      orderBy: { createdAt: 'desc' },
-    });
+  async getAll(page: number, limit: number, filter: string) {
+    const skip = (page - 1) * limit;
+  
+    const [products, total] = await Promise.all([
+      this.prisma.product.findMany({
+        where: {
+          name: { contains: filter },
+        },
+        skip,
+        take: limit,
+      }),
+      this.prisma.product.count({
+        where: {
+          name: { contains: filter },
+        },
+      }),
+    ]);
+  
+    return { products, total };
   }
+  
 
   async create(productData: any): Promise<Product> {
     return this.prisma.product.create({
