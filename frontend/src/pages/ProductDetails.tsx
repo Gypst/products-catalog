@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 interface Product {
   id: number;
@@ -19,10 +19,12 @@ const ProductDetails: React.FC = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/products/${id}`);
+        const response = await axios.get(
+          `http://localhost:3000/products/${id}`
+        );
         setProduct(response.data);
       } catch (error) {
-        console.error('Error fetching product:', error);
+        console.error("Error fetching product:", error);
       } finally {
         setLoading(false);
       }
@@ -31,21 +33,35 @@ const ProductDetails: React.FC = () => {
   }, [id]);
 
   if (loading) {
-    return <p>Загрузка...</p>;
+    return <p>Loading...</p>;
   }
 
   if (!product) {
-    return <p>Продукт не найден</p>;
+    return <p>Product not found</p>;
   }
 
   return (
     <div className="bg-white p-6 shadow rounded-lg">
-      <button
-        className="mb-4 px-4 py-2 bg-gray-500 text-white rounded"
-        onClick={() => navigate(-1)}
-      >
-        Назад
-      </button>
+      
+      <div className="flex place-content-between space-x-4">
+        <button
+          className="mb-4 px-4 py-2 bg-[#E9762B] text-[#F1F0E9] hover:bg-[#e78544] rounded"
+          onClick={() => navigate(-1)}
+        >
+          Back
+        </button>
+
+        <button
+          className="mb-4 px-4 py-2 bg-red-600 text-[#F1F0E9] hover:bg-red-500 rounded"
+          onClick={async () => {
+            await axios.delete(`http://localhost:3000/products/${product.id}`);
+            navigate(-1);
+          }}
+        >
+          Delete
+        </button>
+      </div>
+
       <div className="flex flex-col lg:flex-row">
         <img
           src={`http://localhost:3000${product.imageUrl}`}

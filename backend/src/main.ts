@@ -13,7 +13,6 @@ async function bootstrap() {
     }),
   );
 
-  // Настройка CORS
   app.enableCors({
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -21,7 +20,7 @@ async function bootstrap() {
   });
 
   app.useStaticAssets(path.join(__dirname, '..', 'uploads'), {
-    prefix: '/uploads', 
+    prefix: '/uploads',
   });
 
   await app.listen(3000);

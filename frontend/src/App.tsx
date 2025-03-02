@@ -7,7 +7,7 @@ import ProductDetails from './pages/ProductDetails';
 const App: React.FC = () => {
   return (
     <Router>
-      <div className="min-h-screen min-w-screen bg-gray-100 text-gray-800">
+      <div className="min-h-screen min-w-screen bg-[#F1F0E9] text-gray-800">
         <div className="container mx-auto p-4">
           <Routes>
             <Route path="/" element={<Catalog />} />
